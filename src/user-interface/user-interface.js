@@ -30,7 +30,9 @@ function Command(runFunction, parameters, description){
 
 // Commands mapped to their functions
 const commands = {
-  "!help": new Command(help, "", "lists available commands"),
+  "!help": new Command(help, "", "view available commands"),
+  "!join": new Command(join,"", "join the game"),
+  "!leave": new Command(leave,"", "leave the game"),
 }
 
 /**
@@ -81,8 +83,6 @@ function parseMessage(message){
 /**
  * Lists the commands available to the user, including proper usage and a 
  * brief description of each command
- *
- * @return {string} 
  */
 function help(args, user, channel){
   let outputContent = [];
@@ -97,6 +97,19 @@ function help(args, user, channel){
   channel.send(outputContent.join("\n"));
 }
 
+/**
+ * Places a character for the player into the game world
+ */
+function join(args, user, channel){
+  channel.send(`Sorry ${user}, I can't add you to the game right now. Server problems.`)
+}
+
+/**
+ * Removes a player's character from the game world
+ */
+function leave(args, user, channel){
+  channel.send(`${user} you weren't playing in the first place.`)
+}
 
 
 /**
