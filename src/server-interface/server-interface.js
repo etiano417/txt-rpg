@@ -12,4 +12,19 @@ class ServerInterface{
     this.logger = logger;
     this.serverAddress = serverAddress;
   }
+  
+  connect(){
+    this.logger.logEvent(`Connected to server at ${serverAddress}`)
+  }
+  
+  login(player){
+    this.logger.logEvent(`logged in ${player}`);
+  }
+  
+  logout(player){
+    this.logger.logEvent(`logged out ${player}`)
+  }
+   
 }
+
+module.exports = ServerInterface;

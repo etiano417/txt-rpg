@@ -43,8 +43,9 @@ const commands = {
  * @param {Logger} logger - the subsystem responsible for logging 
  *      occurances
  */
-function userInterface(appToken, parser, logger){
+function userInterface(appToken, parser, server, logger){
   commandParser = parser;
+  serverInterface = server;
   uiLogger = logger;
 
   client.on('ready', function(){
@@ -101,13 +102,17 @@ function help(args, user, channel){
  * Places a character for the player into the game world
  */
 function join(args, user, channel){
-  channel.send(`Sorry ${user}, I can't add you to the game right now. Server problems.`)
+  serverInterface.login(user.toString());
+  uiLogger.logEvent(`${user} failed to join server`);
+  channel.send(`Sorry ${user}, I can't add you to the game right now. Server problems.`);
 }
 
 /**
  * Removes a player's character from the game world
  */
 function leave(args, user, channel){
+  serverInterface.logout(user.toString());
+  uiLogger.logEvent(`${user} failed to leave server`);
   channel.send(`${user} you weren't playing in the first place.`)
 }
 
