@@ -102,9 +102,15 @@ function help(args, user, channel){
  * Places a character for the player into the game world
  */
 function join(args, user, channel){
-  serverInterface.login(user.toString());
-  uiLogger.logEvent(`${user} failed to join server`);
-  channel.send(`Sorry ${user}, I can't add you to the game right now. Server problems.`);
+  
+  responseFunction = (response) => {
+      if(response){
+        channel.send(`${user} joined the game!`);
+      } else {
+        channel.send(`You're already playing ${user}.`);
+      }
+  };
+  serverInterface.login(user.toString(),responseFunction);
 }
 
 /**
